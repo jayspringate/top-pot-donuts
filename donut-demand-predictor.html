@@ -1,0 +1,36 @@
+<script>
+	function shopLocation (name, minFootTraffic, maxFootTrafficPlusOne, percentEntering, donutsPerPerson) {
+		this.name = name;
+		this.minFootTraffic = minFootTraffic;
+		this.maxFootTrafficPlusOne = maxFootTrafficPlusOne;
+		//The purpose of the above variable is to include the maximum range number in the random selection - otherwise, that number would be excluded, because Math.Random excludes 1. //		
+		this.getFootTraffic = function () {
+		this.oneHourFootTraffic = Math.floor(Math.random() * (this.maxFootTrafficPlusOne - this.minFootTraffic)) + this.minFootTraffic;
+		return this.oneHourFootTraffic;
+	};
+
+		this.oneHourFootTraffic = 0;
+		this.percentEntering = percentEntering; 
+		this.donutsPerPerson = donutsPerPerson;
+	}
+	var downtown = new shopLocation ("Downtown", 80, 221, 10, 4);
+	var capitolHill = new shopLocation ("Capitol Hill", 5, 46, 45, 2);
+	var southLakeUnion = new shopLocation ("South Lake Union", 180, 251, 5, 6);
+	var wedgewood = new shopLocation ("Wedgewood", 20, 61, 20, 1.5);
+	var ballard = new shopLocation ("Ballard", 25, 176, 33, 1);
+
+	var DaySimulation = function(shopLocation) {
+		for (i=1; i<12; i++) {
+			shopLocation.getFootTraffic();
+			console.log (shopLocation.name + " hourly donut needs: " + Math.floor((shopLocation.oneHourFootTraffic * 
+			(shopLocation.percentEntering * 0.01) * shopLocation.donutsPerPerson)));
+		}
+	}
+	//The "Math.floor" in the function above was included to eliminate some odd truncation errors the program was producing, i.e., outputting 38.0000001 instead of 38.//
+	DaySimulation(downtown);	
+	DaySimulation(capitolHill);
+	DaySimulation(southLakeUnion);
+	DaySimulation(wedgewood);
+	DaySimulation(ballard);
+</script>
+	
